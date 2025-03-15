@@ -1,0 +1,39 @@
+{
+  "name": "chatbot",
+  "version": "0.0.1",
+  "description": "A reusable chatbot UI component for React",
+  "main": "src/index.ts",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/SjaDrwsh/chatbot.git",
+  "author": "S.Drwsh <darwish.saja@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts",
+    "lint": "eslint . --ext .ts,.tsx",
+    "prepublishOnly": "yarn build",
+    "dev": "esbuild src/index.tsx --bundle --servedir=./ --outfile=dist/index.js --watch"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "styled-components": "6.1.15"
+  },
+  "devDependencies": {
+    "@swc/core": "1.11.9",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.1",
+    "@types/styled-components": "5.1.34",
+    "@typescript-eslint/eslint-plugin": "8.26.1",
+    "@typescript-eslint/parser": "8.26.1",
+    "esbuild": "0.25.1",
+    "esbuild-serve": "1.0.1",
+    "eslint": "9.22.0",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-react": "7.37.4",
+    "prettier": "3.5.3",
+    "tsup": "8.4.0",
+    "typescript": "5.8.2"
+  }
+}
