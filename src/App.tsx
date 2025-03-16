@@ -20,6 +20,11 @@ export interface ChatbotUIProps {
 }
 
 export const ChatbotUI = ({ messages, onSendMessage}: ChatbotUIProps) => {
+  if(!onSendMessage){
+    throw Error('onSendMessage is a mandatory prop, please pass it to receive message typed by the user')
+  }
+
+
   const formattedMessages = Array.isArray(messages) ? messages : [messages];
 
   return (

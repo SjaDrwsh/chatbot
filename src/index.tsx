@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ChatbotUI } from './App'; 
 
+export default ChatbotUI;
+
 export interface RootProps {
     messages?: string | string[];
     onSendMessage?: (message: string) => void;
