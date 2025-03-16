@@ -1,13 +1,11 @@
 {
   "name": "chatbot-ui-component",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "description": "A reusable chatbot UI component for React",
-  "type": "module",
-  "main": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    "import": "./dist/index.mjs"
-  },
+  "type": "module",
   "repository": "https://github.com/SjaDrwsh/chatbot.git",
   "author": "S.Drwsh <darwish.saja@gmail.com>",
   "license": "MIT",
