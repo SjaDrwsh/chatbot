@@ -6,5 +6,6 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  target: 'esnext'
+  target: 'esnext',
+  publicDir: 'public'
 });

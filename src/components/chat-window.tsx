@@ -1,74 +1,89 @@
-import React from 'react';
-import styled from 'styled-components';
-import MessageBubble from './bubble';
-import ChatInput from './chat-input';
+import React from "react";
+import styled from "styled-components";
 
 interface ChatWindowProps {
-  messages: string | string[];
+  messages: string[];
   onSendMessage: (message: string) => void;
 }
 
-const ChatWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 500px;
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  background-color: white;
-`;
-
-const MessageList = styled.div`
-  flex-grow: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding-right: 10px;
-`;
-
-const ChatWindow= ({ messages, onSendMessage }: ChatWindowProps) => {
-  const [messageList, setMessageList] = React.useState<{ text: string; isUser: boolean }[]>([]);
-  const messageListEndRef = React.useRef<HTMLDivElement>(null);
+const ChatWindow = ({ messages, onSendMessage }: ChatWindowProps) => {
+  const [chatMessages, setChatMessages] = React.useState<string[]>(messages);
+  const [input, setInput] = React.useState("");
+  const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
-    const messageArray = Array.isArray(messages) ? messages : [messages];
-    const botMessages = messageArray.map((message) => ({
-      text: message,
-      isUser: false
-    }));
-    setMessageList((prevMessages) => [...prevMessages, ...botMessages]);
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
 
-  // Scroll to the bottom whenever a new message is added
-  React.useEffect(() => {
-    if (messageListEndRef.current) {
-      messageListEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  const sendMessage = () => {
+    if (input.trim()) {
+      setChatMessages([...chatMessages, input]);
+      onSendMessage(input);
+      setInput("");
     }
-  }, [messageList]);
-
-  // Send message handler (for user typing)
-  const handleSendMessage = (message: string) => {
-    setMessageList((prevMessages) => [
-      ...prevMessages,
-      { text: message, isUser: true },  // Add user message with isUser = true
-    ]);
-    onSendMessage(message);  // Notify parent component about the message
   };
 
   return (
-    <ChatWrapper>
+    <ChatContainer>
       <MessageList>
-        {messageList.map((msg, index) => (
-          <MessageBubble key={index} text={msg.text} isUser={msg.isUser} />
+        {chatMessages.map((msg, index) => (
+          <MessageBubble key={index}>{msg}</MessageBubble>
         ))}
-        <div ref={messageListEndRef} />
+        <div ref={messagesEndRef} />
       </MessageList>
-      <ChatInput onSendMessage={handleSendMessage} />
-    </ChatWrapper>
+      <InputContainer>
+        <ChatInput 
+          value={input} 
+          onChange={(e) => setInput(e.target.value)} 
+          placeholder="Type a message..."
+        />
+        <SendButton onClick={sendMessage}>Send</SendButton>
+      </InputContainer>
+    </ChatContainer>
   );
 };
+
+const ChatContainer = styled.div`
+  width: 300px;
+  height: 400px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+`;
+
+const MessageList = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px; /* Ensure space at the bottom */
+`;
+
+const MessageBubble = styled.div`
+  background: #0078ff;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 5px 0;
+  align-self: flex-start; /* Default to left */
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+`;
+
+const ChatInput = styled.input`
+  flex: 1;
+  padding: 5px;
+`;
+
+const SendButton = styled.button`
+  margin-left: 5px;
+  padding: 5px 10px;
+  background: #0078ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;
 
 export default ChatWindow;
