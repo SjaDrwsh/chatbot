@@ -1,6 +1,6 @@
 {
   "name": "chatbot-ui-component",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A reusable chatbot UI component for React",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
