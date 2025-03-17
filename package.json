@@ -1,6 +1,6 @@
 {
   "name": "chatbot-ui-component",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A reusable chatbot UI component for React",
   "main": "index.js",
   "repository": "https://github.com/SjaDrwsh/chatbot.git",
