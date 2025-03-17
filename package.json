@@ -1,13 +1,15 @@
 {
   "name": "chatbot-ui-component",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A reusable chatbot UI component for React",
-  "main": "index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/SjaDrwsh/chatbot.git",
   "author": "S.Drwsh <darwish.saja@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts --sourcemap --clean",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --outDir dist",
     "lint": "eslint . --ext .ts,.tsx",
     "prepublishOnly": "yarn build",
     "dev": "tsup --config tsup.config.ts --watch & http-server public -c-1"
